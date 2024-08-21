@@ -8,4 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['id', 'province_id', 'district_id', 'neighbourhood_id'];
+
+    public function process()
+    {
+        return $this->hasMany(Process::class);
+    }
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class, 'province_id', 'id');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id', 'id');
+    }
+
+    public function neighbourhood()
+    {
+        return $this->belongsTo(Neighbourhood::class, 'neighbourhood_id', 'id');
+    }
 }

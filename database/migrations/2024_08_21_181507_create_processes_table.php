@@ -14,22 +14,27 @@ return new class extends Migration
         Schema::create('processes', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->uuid('address_id');
-            $table->foreign('address_id')->references('id')->on('adresses');
             $table->uuid('identification_id');
-            $table->foreign('identification_id')->references('id')->on('identifications');
-            $table->string('marital_state')->nullable();
-            $table->string('genre');
-            $table->string('race');
+            $table->uuid('oc_id');
+            $table->enum('marital_state', ['single', 'married', 'divorced', 'widowed'])->nullable();
+            $table->string('name')->index();
+            $table->date('date_of_birth');
+            $table->enum('genre', ['male', 'female', 'other']);
+            $table->enum('race', ['black', 'white', 'mixed', 'asian', 'other']);
             $table->string('profession')->nullable();
             $table->string('workplace')->nullable();
-            $table->string('naturality');
+            $table->string('naturality')->index();
             $table->string('phone_number');
-            $table->string('father_name');
-            $table->string('mother_name');
+            $table->string('father_name')->index();
+            $table->string('mother_name')->index();
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('address_id')->references('id')->on('addresses');
+            $table->foreign('identification_id')->references('id')->on('identifications');
+            $table->foreign('oc_id')->references('id')->on('orthopedic_centers');
         });
     }
 
