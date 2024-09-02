@@ -35,6 +35,18 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'flash'   => [
+                'type'    => $request->session()->get('type'),
+                'message' => $request->session()->get('message'),
+                'status'  => $request->session()->get('status'),
+            ],
+            'filters' => [
+                'search'  => $request->query('search'),
+                'limit'   => $request->query('limit'),
+                'col'     => $request->query('col'),
+                'sort'    => $request->query('sort'),
+                'filters' => $request->query('filters'),
+            ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
