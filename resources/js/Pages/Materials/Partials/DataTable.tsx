@@ -56,6 +56,10 @@ interface Material {
     minimum_stock: number;
     current_stock: number;
     warehouse_id: string;
+    warehouse: {
+        id: string;
+        name: string;
+    };
     user_id: string;
     created_at: string;
     deleted_at: string | null;
@@ -203,7 +207,7 @@ export default function DataTable() {
                                 </TableHead>
                                 <TableHead>
                                     <TableSortHeader
-                                        title="Stock actual"
+                                        title="Stock actual (Unidade de Medida)"
                                         onClick={() => {
                                             setTimeDebounce(50)
                                             sort('current_stock')
@@ -211,16 +215,7 @@ export default function DataTable() {
                                         sort={params.col === 'current_stock' ? params.sort : null}
                                     />
                                 </TableHead>
-                                <TableHead>
-                                    <TableSortHeader
-                                        title="Unidade de Medida"
-                                        onClick={() => {
-                                            setTimeDebounce(50)
-                                            sort('unit_of_measure')
-                                        }}
-                                        sort={params.col === 'unit_of_measure' ? params.sort : null}
-                                    />
-                                </TableHead>
+                                <TableHead>Armazém</TableHead>
                                 <TableHead>Estado</TableHead>
                                 <TableHead>
                                     <TableSortHeader
@@ -241,13 +236,17 @@ export default function DataTable() {
                                     materialData.map((material) => (
                                         <TableRow key={material.id} className=" dark:border-slate-800 ">
                                             <TableCell className='dark:text-white'> {material.designation}</TableCell>
-                                            <TableCell className='dark:text-white'> {material.current_stock}</TableCell>
-                                            <TableCell className='dark:text-white'>{unitOfMeasureMap[material.unit_of_measure] || material.unit_of_measure}</TableCell>
+                                            <TableCell className='dark:text-white'> {
+                                                    material.current_stock <= material.reorder_point
+                                                        ? <Badge className="ring-red-600/10 dark:text-red-900 text-red-700 ring-1 ring-inset bg-red-50 dark:bg-red-300 dark:ring-red-900/10" variant="outline">{material.current_stock}{" ("}{unitOfMeasureMap[material.unit_of_measure] || material.unit_of_measure}{")"}</Badge>
+                                                        : <Badge className="text-green-700 dark:text-green-900 ring-1 ring-inset ring-green-600/10 dark:ring-green-900/10 bg-green-50 dark:bg-green-300" variant="outline">{material.current_stock}{" ("}{unitOfMeasureMap[material.unit_of_measure] || material.unit_of_measure}{")"}</Badge>
+                                                }</TableCell>
+                                                <TableCell className='dark:text-white'> {material.warehouse.name}</TableCell>
                                             <TableCell>
                                                 {
                                                     material.deleted_at
-                                                        ? <Badge className="ring-red-600/10 dark:text-red-900 text-red-700 ring-1 ring-inset bg-red-50 dark:bg-red-300 dark:ring-red-900/10" variant="outline">Desactivado</Badge>
-                                                        : <Badge className="text-green-700 dark:text-green-900 ring-1 ring-inset ring-green-600/10 dark:ring-green-900/10 bg-green-50 dark:bg-green-300" variant="outline">Activo</Badge>
+                                                        ? <Badge className="ring-red-600/10 dark:text-red-900 text-red-700 ring-1 ring-inset bg-red-50 dark:bg-red-300 dark:ring-red-900/10" variant="outline">Indísponivel</Badge>
+                                                        : <Badge className="text-green-700 dark:text-green-900 ring-1 ring-inset ring-green-600/10 dark:ring-green-900/10 bg-green-50 dark:bg-green-300" variant="outline">Dísponivel</Badge>
                                                 }
                                             </TableCell>
                                             <TableCell className='dark:text-white'>{dayjs(material.created_at).fromNow()}</TableCell>

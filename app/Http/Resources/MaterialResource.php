@@ -25,6 +25,7 @@ class MaterialResource extends JsonResource
             'minimum_stock' => $this->minimum_stock,
             'current_stock' => $this->current_stock,
             'warehouse_id' => $this->warehouse_id,
+            'warehouse' => $this->warehouse,
             'user_id' => $this->user_id,
             'created_at' => $this->created_at->format('Y-m-d H:i A'),
 

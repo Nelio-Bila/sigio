@@ -24,8 +24,8 @@ class MaterialService
             request()->query('filters') ?? []
         );
 
-        $result = DataTable::query(Material::query())
-            ->searchable(['designation', 'brand_manufacturer', 'code'])
+        $result = DataTable::query(Material::query()->with(['warehouse']))
+            ->searchable(['designation', 'brand_manufacturer', 'code', 'warehouse.name'])
             ->applyFilters($filters)
             ->allowedFilters([
                 'unit_of_measure',
@@ -34,7 +34,7 @@ class MaterialService
                 'rack',
                 'warehouse_id',
             ])
-            ->allowedSorts(['designation', 'brand_manufacturer', 'current_stock', 'created_at', 'updated_at'])
+            ->allowedSorts(['designation', 'current_stock', 'warehouse.name', 'brand_manufacturer', 'current_stock', 'created_at', 'updated_at'])
             ->make();
 
         return MaterialResource::collection($result);
@@ -65,7 +65,7 @@ class MaterialService
 
     public function show($id)
     {
-        return Material::findOrFail($id);
+        return Material::with(['warehouse','stock_movements'])->findOrFail($id);
     }
 
     public function update($id, array $data)
