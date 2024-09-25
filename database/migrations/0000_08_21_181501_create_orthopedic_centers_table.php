@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('neighbourhoods', function (Blueprint $table) {
+        Schema::create('orthopedic_centers', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
-            $table->string('cod')->unique();
-            $table->uuid('district_id');
-            $table->foreign('district_id')->references('id')->on('districts');
+            $table->string('name')->unique()->index();
+            $table->uuid('address_id');
+            $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('address_id')->references('id')->on('addresses');
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('neighbourhoods');
+        Schema::dropIfExists('orthopedic_centers');
     }
 };

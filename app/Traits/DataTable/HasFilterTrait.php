@@ -5,6 +5,7 @@ namespace App\Traits\DataTable;
 trait HasFilterTrait
 {
     protected array $filters = [];
+
     protected array $allowedFilters = [];
 
     protected function filter()
@@ -22,7 +23,7 @@ trait HasFilterTrait
             foreach ($filters as $filter) {
                 [$column, $value] = explode(':', $filter);
 
-                if (!isset($conditions[$column])) {
+                if (! isset($conditions[$column])) {
                     $conditions[$column] = [];
                 }
 

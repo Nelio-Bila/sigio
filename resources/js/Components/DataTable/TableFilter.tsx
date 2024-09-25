@@ -39,7 +39,7 @@ const FilterBadges: React.FC<FilterBadgesProps> = ({ selectedValues, options }) 
         <div className="hidden space-x-1 lg:flex">
             {selectedValues.length > 2 ? (
                 <Badge variant="secondary" className="rounded-sm px-1 font-normal bg-gray-200/50">
-                    {selectedValues.length} selected
+                    {selectedValues.length} selecionados
                 </Badge>
             ) : (
                 options.filter(option => selectedValues.includes(option.value)).map(option => (
@@ -95,7 +95,7 @@ const ClearFilters: React.FC<ClearFiltersProps> = ({ clearFilters }) => (
         <CommandSeparator />
         <CommandGroup>
             <CommandItem onSelect={clearFilters} className="justify-center text-center">
-                Clear filters
+                Apagar filtros
             </CommandItem>
         </CommandGroup>
     </>
@@ -139,13 +139,13 @@ const TableFilter: React.FC<TableFilterProps> = ({ params, setParams, setTimeDeb
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button variant="outline" size="sm" className="w-full md:w-auto h-8 border-dashed border-gray-400 text-xs hover:bg-gray-200/50">
+                <Button variant="outline" size="sm" className="w-full md:w-auto h-8 border-dashed border-gray-400 text-xs hover:bg-gray-200/50 dark:text-white">
                     <CirclePlusIcon className="mr-2 h-4 w-4" />
                     {title}
                     {selectedValues.length > 0 && <FilterBadges selectedValues={selectedValues} options={options} />}
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-full md:w-[200px] p-0" align="start">
+            <PopoverContent className="w-full md:w-[200px] p-0 dark:text-white" align="start">
                 <Command>
                     <CommandInput placeholder={title} />
                     <FilterOptions options={options} params={params} filter={filter} onSelectFilter={onSelectFilter} />

@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HasCustomNid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Process extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasCustomNid, HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +17,10 @@ class Process extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
+        'nid',
         'user_id',
+        'oc_id',
         'address_id',
         'identification_id',
         'marital_state',
@@ -31,6 +35,10 @@ class Process extends Model
         'father_name',
         'mother_name',
     ];
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
 
     /**
      * The attributes that should be cast.

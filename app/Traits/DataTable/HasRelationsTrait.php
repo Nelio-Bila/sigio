@@ -10,7 +10,7 @@ trait HasRelationsTrait
     {
         $query = $this->query;
 
-        if (!empty($this->relationship)) {
+        if (! empty($this->relationship)) {
             $query->with($this->relationship);
         }
 

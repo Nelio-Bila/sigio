@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\RoleService;
 use App\Http\Requests\QueryParamsRequest;
+use App\Services\RoleService;
 
 class RoleController extends Controller
 {
@@ -19,13 +19,14 @@ class RoleController extends Controller
         $roles = $this->roleService->index();
 
         return inertia('Roles/Index', [
-            'roles' => $roles
+            'roles' => $roles,
         ]);
     }
 
     public function list(QueryParamsRequest $request)
     {
         $roles = $this->roleService->index();
+
         return response()->json($roles);
     }
 }

@@ -1,10 +1,10 @@
 import { FormEventHandler } from 'react';
 import GuestLayout from '@/layouts/GuestLayout';
 import InputError from '@/components/InputError';
-import InputLabel from '@/components/InputLabel';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { Label } from '@/components/ui/label';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -28,7 +28,7 @@ export default function Register() {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <Label htmlFor="name">Nome</Label>
 
                     <Input
                         id="name"
@@ -44,7 +44,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="email" value="Email" />
+                    <Label htmlFor="email">Email</Label>
 
                     <Input
                         id="email"
@@ -61,7 +61,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <Label htmlFor="password">Palavra-passe</Label>
 
                     <Input
                         id="password"
@@ -78,7 +78,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
+                    <Label htmlFor="password_confirmation" >Confirma palavra-passe</Label>
 
                     <Input
                         id="password_confirmation"

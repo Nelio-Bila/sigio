@@ -16,7 +16,7 @@ class DistrictSeeder extends Seeder
      */
     public function run()
     {
-        $caboDelgado = Province::where('cod', 'CD')->first();
+        $caboDelgado = Province::where('cod', 'CD')->firstOrFail();
 
         $ancuabe = new District([
             'id' => Str::uuid()->toString(),

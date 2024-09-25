@@ -13,7 +13,6 @@ class DataTable
     /**
      * Which query to use for the data table.
      *
-     * @param EloquentBuilder|QueryBuilder $query
      *
      * @return $this
      */
@@ -32,7 +31,6 @@ class DataTable
      *
      * Example: `posts`, `user.roles`.
      *
-     * @param array $relationship
      *
      * @return $this
      */
@@ -51,7 +49,6 @@ class DataTable
      *
      * Example: `name`, `email`, `categories.name`
      *
-     * @param array $searchable
      *
      * @return $this
      */
@@ -72,7 +69,6 @@ class DataTable
      * Example: `status:published`, `status:draft`, `role:Administrator`.
      * The filter can be `NULL` or `NOT NULL`.
      *
-     * @param array $filters
      *
      * @return $this
      */
@@ -91,7 +87,6 @@ class DataTable
      *
      * Example: `status:published`, `status:draft`, `roles.name:Administrator`.
      *
-     * @param array $allowedFilters
      *
      * @return $this
      */
@@ -109,7 +104,6 @@ class DataTable
      *
      * Example: `title`, `created_at`, `author`.
      *
-     * @param array $allowedSorts
      *
      * @return $this
      */
@@ -120,7 +114,6 @@ class DataTable
         return $this;
     }
 
-
     /**
      * Set the type of the data table.
      *
@@ -128,7 +121,6 @@ class DataTable
      *
      * The default type is `pagination`.
      *
-     * @param string $type
      *
      * @return $this
      */
@@ -151,8 +143,6 @@ class DataTable
      *
      * Example: `created_at`, `asc`.
      *
-     * @param string $column
-     * @param string $direction
      *
      * @return $this
      */
@@ -172,7 +162,6 @@ class DataTable
      *
      * Note: This method is only applicable when the type is `pagination`.
      *
-     * @param int $limit
      *
      * @return $this
      */

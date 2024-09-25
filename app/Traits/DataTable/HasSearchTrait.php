@@ -15,7 +15,7 @@ trait HasSearchTrait
             $query->where(function ($query) use ($search) {
                 $lower = 'LOWER';
                 $like = 'LIKE';
-                $searchTerm = '%' . strtolower($search) . '%';
+                $searchTerm = '%'.strtolower($search).'%';
 
                 foreach ($this->searchable as $column) {
                     if (str()->contains($column, '.')) {

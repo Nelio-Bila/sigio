@@ -1,5 +1,5 @@
 import { ForwardRefExoticComponent, RefAttributes } from 'react';
-import { Home, ShoppingCart, Package, Users, LineChart, LucideProps, HardHat, ReceiptText, Archive, Warehouse } from 'lucide-react';
+import { Home, ShoppingCart, Package, Users, LineChart, LucideProps, HardHat, ReceiptText, Archive, Warehouse, Hospital } from 'lucide-react';
 export interface MenuItem {
     route: string;
     name: string;
@@ -22,6 +22,13 @@ export const menuItems: MenuItem[] = [
         name: 'Inicio',
         icon: Home,
         isAdmin: false,
+    },
+    {
+        route: '/orthopedic_centers',
+        name: 'Centros Ortopédicos',
+        icon: Hospital,
+        isAdmin: false,
+        // badge: 6,
     },
     {
         route: '/processes',

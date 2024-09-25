@@ -4,10 +4,10 @@ import { Link, usePage, useForm } from "@inertiajs/react";
 import { BadgeAlertIcon, BadgeCheckIcon, Edit, EyeIcon, MoreHorizontal, Trash, ArchiveRestore } from "lucide-react";
 import useDebouncedSearch from "@/hooks/useDebouncedSearch";
 import useSorting from "@/hooks/useSorting";
-import TableSortHeader from "@/Components/DataTable/TableSortHeader";
-import TablePagination from "@/Components/DataTable/TablePagination";
-import TableToolbar from "@/Components/DataTable/TableToolbar";
-import TableFilter from "@/Components/DataTable/TableFilter";
+import TableSortHeader from "@/components/DataTable/TableSortHeader";
+import TablePagination from "@/components/DataTable/TablePagination";
+import TableToolbar from "@/components/DataTable/TableToolbar";
+import TableFilter from "@/components/DataTable/TableFilter";
 import { PageProps as InertiaPageProps } from '@inertiajs/core';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
@@ -21,7 +21,24 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import { Badge } from "@/components/ui/badge"
 import { router } from '@inertiajs/react'
+import dayjs from 'dayjs'
+
+import relativeTime from 'dayjs/plugin/relativeTime'
+import updateLocale from 'dayjs/plugin/updateLocale'
+import localeData from 'dayjs/plugin/localeData'
+
+// Extend Day.js with the plugins
+dayjs.extend(relativeTime);
+dayjs.extend(updateLocale);
+dayjs.extend(localeData);
+
+// Import the Portuguese locale
+import 'dayjs/locale/pt';
+
+// Update the locale to Portuguese
+dayjs.locale('pt');
 
 
 interface User {
@@ -76,13 +93,13 @@ export default function DataTable() {
 
     const status: StatusOption[] = [
         {
-            value: "verified",
-            label: "Verificado",
+            value: "active",
+            label: "Activo",
             icon: ({ className }: { className: string }) => <BadgeCheckIcon className={className} />
         },
         {
-            value: "unverified",
-            label: "Não verificado",
+            value: "inactive",
+            label: "Inactivo",
             icon: ({ className }: { className: string }) => <BadgeAlertIcon className={className} />
         }
     ];
@@ -93,7 +110,8 @@ export default function DataTable() {
     }));
 
     const destroy_user = () => {
-        destroy(`users/destroy/${user_id_to_destroy}`);
+        // destroy(`users/destroy/${user_id_to_destroy}`);
+        router.delete(`users/destroy/${user_id_to_destroy}`);
         router.visit('/users', {
             method: 'get', preserveScroll: true,
         })
@@ -112,7 +130,7 @@ export default function DataTable() {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                        <AlertDialogAction onClick={() => destroy_user()}>Sim</AlertDialogAction>
+                        <AlertDialogAction onClick={()=>destroy_user()}>Sim</AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
@@ -182,11 +200,11 @@ export default function DataTable() {
                                         sort={params.col === 'email' ? params.sort : null}
                                     />
                                 </TableHead>
-                                <TableHead>Roles</TableHead>
-                                <TableHead>Status</TableHead>
+                                <TableHead>Papeis do utilizador</TableHead>
+                                <TableHead>Estado</TableHead>
                                 <TableHead>
                                     <TableSortHeader
-                                        title="Registrado aos"
+                                        title="Registrado"
                                         onClick={() => {
                                             setTimeDebounce(50)
                                             sort('created_at')
@@ -201,41 +219,39 @@ export default function DataTable() {
                             {
                                 userData.length > 0 ? (
                                     userData.map((user) => (
-                                        <TableRow key={user.id} className="">
+                                        <TableRow key={user.id} className=" dark:border-slate-800 ">
                                             <TableCell className='dark:text-white'> {user.name}</TableCell>
                                             <TableCell className='dark:text-white'>{user.email}</TableCell>
                                             <TableCell>
                                                 <div className="flex items-center gap-2">
                                                     {
                                                         user.roles.map((role) => (
-                                                            <span key={role.id} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:text-white">
-                                                                {role.name}
-                                                            </span>
+                                                            <Badge key={role.id} className="bg-blue-100 dark:bg-blue-300 text-blue-800 dark:text-blue-900" variant="outline">{role.name}</Badge>
                                                         ))
                                                     }
                                                 </div>
                                             </TableCell>
                                             <TableCell>
                                                 {
-                                                    user.is_verified_email
-                                                        ? <span className="inline-flex items-center rounded bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Verificado</span>
-                                                        : <span className="inline-flex items-center rounded bg-red-50 px-2 py-0.5 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">Não Verificado</span>
+                                                    user.deleted_at
+                                                        ? <Badge className="ring-red-600/10 dark:text-red-900 text-red-700 ring-1 ring-inset bg-red-50 dark:bg-red-300 dark:ring-red-900/10" variant="outline">Desactivado</Badge>
+                                                        : <Badge className="text-green-700 dark:text-green-900 ring-1 ring-inset ring-green-600/10 dark:ring-green-900/10 bg-green-50 dark:bg-green-300" variant="outline">Activo</Badge>
                                                 }
                                             </TableCell>
-                                            <TableCell className='dark:text-white'>{user.created_at}</TableCell>
+                                            <TableCell className='dark:text-white'>{dayjs(user.created_at).fromNow()}</TableCell>
                                             <TableCell>
                                                 <div className="flex items-center justify-end gap-2">
                                                     <DropdownMenu>
                                                         <DropdownMenuTrigger asChild>
                                                             <Button variant="ghost" className="h-8 w-8 p-0">
                                                                 <span className="sr-only">Abrir menu de utilizador</span>
-                                                                <MoreHorizontal className="h-4 w-4" />
+                                                                <MoreHorizontal className="h-4 w-4 dark:text-white" />
                                                             </Button>
                                                         </DropdownMenuTrigger>
                                                         <DropdownMenuContent align="end">
                                                             <DropdownMenuLabel>Opções</DropdownMenuLabel>
                                                             {!user.deleted_at && <DropdownMenuItem>
-                                                                <Link className="flex gap-1" href={`/users/${user.id}`}> <EyeIcon className="me-2 w-4 h-4" />Detalhes</Link>
+                                                                <Link className="flex gap-1" href={`/users/show/${user.id}`}> <EyeIcon className="me-2 w-4 h-4" />Detalhes</Link>
                                                             </DropdownMenuItem>}
                                                             {!user.deleted_at && <DropdownMenuItem>
                                                                 <Link className="flex gap-1" href={`/users/edit/${user.id}`}> <Edit className="me-2 w-4 h-4" />Actualizar dados</Link>

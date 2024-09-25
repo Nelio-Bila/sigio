@@ -11,9 +11,13 @@ class Province extends Model
 
     protected $fillable = ['id', 'name', 'cod'];
 
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
     public function districts()
     {
-        return $this->hasMany(District::class);
+        return $this->hasMany(District::class, 'province_id', 'id');
     }
 
     public function adresses()

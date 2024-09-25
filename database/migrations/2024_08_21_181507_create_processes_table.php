@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('processes', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->bigInteger('nid')->unsigned()->unique();
             $table->uuid('user_id');
             $table->uuid('address_id');
             $table->uuid('identification_id');

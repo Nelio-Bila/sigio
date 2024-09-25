@@ -29,7 +29,7 @@ trait HasDataTableTrait
             throw new \InvalidArgumentException('Query must be set before calling make()');
         }
 
-        if (!in_array($this->type, ['pagination', 'collection'])) {
+        if (! in_array($this->type, ['pagination', 'collection'])) {
             throw new \InvalidArgumentException('DataTable type must be pagination or collection');
         }
 

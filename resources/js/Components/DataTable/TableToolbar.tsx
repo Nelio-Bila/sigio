@@ -64,7 +64,7 @@ const TableToolbar: React.FC<TableToolbarProps> = ({ placeholder, params, setPar
     const [limit, setLimit] = useState((params.limit || 10).toString());
 
     return (
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between dark:text-white">
             <div className="flex items-center">
                 <p className="text-xs font-medium hidden mr-1 sm:block">Registros por página</p>
                 <RowsPerPageSelect

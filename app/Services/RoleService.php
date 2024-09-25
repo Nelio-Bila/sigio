@@ -2,17 +2,17 @@
 
 namespace App\Services;
 
+use App\Models\Role;
 use App\Facades\DataTable;
 use App\Http\Resources\RoleResource;
-use Spatie\Permission\Models\Role;
 
 class RoleService
 {
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $filters = str_replace(
-            ['guard:web', 'guard:api',],
-            ['guard_name:web', 'guard_name:api',],
+            ['guard:web', 'guard:api'],
+            ['guard_name:web', 'guard_name:api'],
             request()->query('filters') ?? []
         );
 

@@ -21,6 +21,6 @@ createInertiaApp({
         hydrateRoot(el, <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme"><App {...props} /><Toaster /></ThemeProvider>);
     },
     progress: {
-        color: '#4B5563',
+        color: '#F97316',
     },
 });

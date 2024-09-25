@@ -5,6 +5,7 @@ namespace App\Traits\DataTable;
 trait HasLimitEntriesTrait
 {
     protected string $type = 'pagination';
+
     protected int $limit = 10;
 
     protected function limit()

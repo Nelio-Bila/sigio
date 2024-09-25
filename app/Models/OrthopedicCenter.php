@@ -10,12 +10,17 @@ class OrthopedicCenter extends Model
 {
     use HasFactory, SoftDeletes;
 
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'address_id',
     ];
@@ -26,5 +31,11 @@ class OrthopedicCenter extends Model
     public function address()
     {
         return $this->belongsTo(Address::class);
+    }
+
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
     }
 }

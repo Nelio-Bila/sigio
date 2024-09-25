@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orthopedic_centers', function (Blueprint $table) {
+        Schema::create('neighbourhoods', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name')->unique()->index();
-            $table->uuid('address_id');
-            $table->softDeletes();
+            $table->string('name');
+            $table->string('cod');
+            $table->uuid('district_id');
+            $table->foreign('district_id')->references('id')->on('districts');
             $table->timestamps();
 
-
-            $table->foreign('address_id')->references('id')->on('addresses');
+            // Add a composite unique index on name and district_id
+            $table->unique(['name', 'district_id']);
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orthopedic_centers');
+        Schema::dropIfExists('neighbourhoods');
     }
 };

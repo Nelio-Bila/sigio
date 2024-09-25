@@ -10,7 +10,7 @@ const breadcrumbItems = [
     { label: "Utilizadores" }
   ]
 
-export default function Dashboard({ auth }: PageProps) {
+export default function Index({ auth }: PageProps) {
     return (
         <AuthenticatedLayout
             user={auth.user}

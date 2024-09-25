@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import { Spinner } from '@/components/ui/spinner';
+import { LogIn } from 'lucide-react';
 
 export default function Login({ status, canResetPassword }: { status?: string, canResetPassword: boolean }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -24,7 +26,7 @@ export default function Login({ status, canResetPassword }: { status?: string, c
 
     return (
         <GuestLayout>
-            <Head title="Log in" />
+            <Head title="Inicio de sessão" />
 
 
 
@@ -93,7 +95,9 @@ export default function Login({ status, canResetPassword }: { status?: string, c
                                 </Link>
                             )}
 
-                            <Button className="ms-4" disabled={processing}>
+                            <Button className="ms-4 flex gap-1" disabled={processing}>
+                            {!processing && <LogIn />}
+                            {processing && <Spinner />}
                                 Iniciar sessão
                             </Button>
                         </div>

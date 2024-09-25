@@ -46,7 +46,7 @@ const TablePagination: React.FC<TablePaginationProps> = ({ links, meta }) => {
         <div className="flex items-center justify-between bg-background dark:text-white">
             <div className="hidden md:block">
                 <p className="text-xs text-nile-blue dark:text-white">
-                    Showing <span className="font-bold">{meta.from || 0}</span> to <span className="font-bold">{meta.to || 0}</span> of <span className="font-bold">{meta.total}</span> entries
+                    Mostrando <span className="font-bold">{meta.from || 0}</span> à <span className="font-bold">{meta.to || 0}</span> de <span className="font-bold">{meta.total}</span> registros
                 </p>
             </div>
 
@@ -55,7 +55,7 @@ const TablePagination: React.FC<TablePaginationProps> = ({ links, meta }) => {
                 <PaginationLink href={links.prev} srText="Go to previous page" icon={ChevronLeftIcon} />
             </div>
 
-            <div className="text-xs text-gray-900 font-bold">
+            <div className="text-xs text-gray-900 font-bold dark:text-gray-100">
                 {meta.current_page} / {meta.last_page}
             </div>
 

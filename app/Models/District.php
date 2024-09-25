@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class District extends Model
 {
-    use HasFactory ;
+    use HasFactory;
 
     protected $fillable = ['id', 'name', 'cod', 'province_id'];
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
 
     public function province()
     {
