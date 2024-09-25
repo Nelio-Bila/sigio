@@ -23,7 +23,7 @@ export default function Index({ auth }: PageProps) {
                     <BreadcrumbResponsive items={breadcrumbItems} />
                     <div className="flex justify-between md:justify-end gap-2">
                         <Link href='/materials/register'><Button variant="default">Registrar material</Button></Link>
-                        <Link href='/stock_movements/register'><Button variant="default">Registrar movimento de material</Button></Link>
+                        <Link href='/materials/stock_movements/register'><Button variant="default">Registrar movimento de material</Button></Link>
                     </div>
                     <DataTable />
                 </div>

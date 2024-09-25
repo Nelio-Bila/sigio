@@ -29,7 +29,7 @@ class StockMovementController extends Controller
 
     public function create(): Response
     {
-        return Inertia::render('StockMovements/create');
+        return Inertia::render('Materials/StockMovements/register');
     }
 
     public function store(CreateStockMovementRequest $request): RedirectResponse

@@ -11,6 +11,7 @@ use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\NeighbourhoodController;
 use App\Http\Controllers\OrthopedicCenterController;
+use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\WarehouseController;
 
 Route::get('/', function () {
@@ -26,7 +27,6 @@ Route::prefix('roles')->name('roles.')->middleware('auth')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/list', 'list')->name('list');
     });
-
 });
 
 Route::prefix('users')->name('users.')->middleware('auth')->group(function () {
@@ -41,7 +41,6 @@ Route::prefix('users')->name('users.')->middleware('auth')->group(function () {
         Route::post('/restore/{id}', 'restore')->name('restore');
         Route::delete('/force_destroy/{id}', 'force_destroy')->name('force_destroy');
     });
-
 });
 
 Route::prefix('orthopedic_centers')->name('orthopedic_centers.')->middleware('auth')->group(function () {
@@ -56,7 +55,6 @@ Route::prefix('orthopedic_centers')->name('orthopedic_centers.')->middleware('au
         Route::post('/restore/{id}', 'restore')->name('restore');
         Route::delete('/force_destroy/{id}', 'force_destroy')->name('force_destroy');
     });
-
 });
 
 Route::prefix('processes')->name('processes.')->middleware('auth')->group(function () {
@@ -71,7 +69,6 @@ Route::prefix('processes')->name('processes.')->middleware('auth')->group(functi
         Route::post('/restore/{id}', 'restore')->name('restore');
         Route::delete('/force_destroy/{id}', 'force_destroy')->name('force_destroy');
     });
-
 });
 
 Route::prefix('consultations')->name('consultations.')->middleware('auth')->group(function () {
@@ -86,7 +83,6 @@ Route::prefix('consultations')->name('consultations.')->middleware('auth')->grou
         Route::post('/restore/{id}', 'restore')->name('restore');
         Route::delete('/force_destroy/{id}', 'force_destroy')->name('force_destroy');
     });
-
 });
 
 Route::prefix('warehouses')->name('warehouses.')->middleware('auth')->group(function () {
@@ -101,7 +97,6 @@ Route::prefix('warehouses')->name('warehouses.')->middleware('auth')->group(func
         Route::post('/restore/{id}', 'restore')->name('restore');
         Route::delete('/force_destroy/{id}', 'force_destroy')->name('force_destroy');
     });
-
 });
 
 Route::prefix('materials')->name('materials.')->middleware('auth')->group(function () {
@@ -117,6 +112,17 @@ Route::prefix('materials')->name('materials.')->middleware('auth')->group(functi
         Route::delete('/force_destroy/{id}', 'force_destroy')->name('force_destroy');
     });
 
+    Route::controller(StockMovementController::class)->name('stock_movements.')->group(function () {
+        Route::get('/stock_movements', 'index')->name('index');
+        Route::get('/stock_movements/register', 'create')->name('create');
+        Route::post('/stock_movements/register', 'store')->name('store');
+        Route::get('/stock_movements/show/{id}', 'show')->name('show');
+        Route::get('/stock_movements/edit/{id}', 'edit')->name('edit');
+        Route::put('/stock_movements/update/{id}', 'update')->name('update');
+        Route::delete('/stock_movements/destroy/{id}', 'destroy')->name('destroy');
+        Route::post('/stock_movements/restore/{id}', 'restore')->name('restore');
+        Route::delete('/stock_movements/force_destroy/{id}', 'force_destroy')->name('force_destroy');
+    });
 });
 
 Route::middleware('auth')->group(function () {
@@ -136,4 +142,4 @@ Route::prefix('provinces')->name('provinces.')->group(function () {
     Route::get('/districts/{district}/neighbourhoods', [NeighbourhoodController::class, 'index'])->name('districts.neighbourhoods.index');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
