@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('warehouses', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name')->unique()->index();
-            $table->uuid('oc_id');
+            $table->uuid('orthopedic_center_id');
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('oc_id')->references('id')->on('orthopedic_centers');
+            $table->foreign('orthopedic_center_id')->references('id')->on('orthopedic_centers');
         });
     }
 

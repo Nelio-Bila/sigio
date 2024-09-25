@@ -11,6 +11,10 @@ class Identification extends Model
 
     protected $fillable = ['id', 'number', 'archive', 'issue_date', 'expire_date'];
 
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
     public function processe()
     {
         return $this->belongsTo(Process::class);

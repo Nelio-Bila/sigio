@@ -1,9 +1,9 @@
 import { FormEventHandler } from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import GuestLayout from '@/layouts/GuestLayout';
+import InputError from '@/components/InputError';
+import InputLabel from '@/components/InputLabel';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Head, useForm } from '@inertiajs/react';
 
 export default function ConfirmPassword() {
@@ -21,23 +21,22 @@ export default function ConfirmPassword() {
 
     return (
         <GuestLayout>
-            <Head title="Confirm Password" />
+            <Head title="Confirmar palavra-passe" />
 
             <div className="mb-4 text-sm text-gray-600 dark:text-gray-400">
-                This is a secure area of the application. Please confirm your password before continuing.
+                Esta é uma área segura do sistema. Por favor, confirme sua senha antes de continuar.
             </div>
 
             <form onSubmit={submit}>
                 <div className="mt-4">
                     <InputLabel htmlFor="password" value="Password" />
 
-                    <TextInput
+                    <Input
                         id="password"
                         type="password"
                         name="password"
                         value={data.password}
-                        className="mt-1 block w-full"
-                        isFocused={true}
+                        className="mt-1 block w-full dark:text-gray-100"
                         onChange={(e) => setData('password', e.target.value)}
                     />
 
@@ -45,9 +44,9 @@ export default function ConfirmPassword() {
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Confirm
-                    </PrimaryButton>
+                    <Button className="ms-4" disabled={processing} variant="default">
+                        Confirmar
+                    </Button>
                 </div>
             </form>
         </GuestLayout>

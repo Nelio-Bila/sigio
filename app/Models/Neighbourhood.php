@@ -11,6 +11,10 @@ class Neighbourhood extends Model
 
     protected $fillable = ['id', 'name', 'cod', 'district_id'];
 
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
     public function district()
     {
         return $this->belongsTo(District::class, 'district_id', 'id');

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\OrthopedicCenter;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -24,7 +25,9 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
+            'id' => Str::uuid(),
             'name' => fake()->name(),
+            'orthopedic_center_id' => OrthopedicCenter::inRandomOrder()->first()->id,
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),

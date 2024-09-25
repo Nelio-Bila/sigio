@@ -16,15 +16,20 @@ class Warehouse extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
-        'oc_id',
+        'orthopedic_center_id',
     ];
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
 
     /**
      * Get the orthopedic center associated with the warehouse.
      */
-    public function orthopedicCenter()
+    public function orthopedic_center()
     {
-        return $this->belongsTo(OrthopedicCenter::class, 'oc_id');
+        return $this->belongsTo(OrthopedicCenter::class, 'orthopedic_center_id');
     }
 }

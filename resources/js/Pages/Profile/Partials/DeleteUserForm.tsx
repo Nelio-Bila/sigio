@@ -1,11 +1,10 @@
 import { useRef, useState, FormEventHandler } from 'react';
-import DangerButton from '@/Components/DangerButton';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import Modal from '@/Components/Modal';
-import SecondaryButton from '@/Components/SecondaryButton';
-import TextInput from '@/Components/TextInput';
+import InputError from '@/components/InputError';
+import InputLabel from '@/components/InputLabel';
 import { useForm } from '@inertiajs/react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 
 export default function DeleteUserForm({ className = '' }: { className?: string }) {
     const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);
@@ -54,9 +53,12 @@ export default function DeleteUserForm({ className = '' }: { className?: string 
                 </p>
             </header>
 
-            <DangerButton onClick={confirmUserDeletion}>Delete Account</DangerButton>
+            {/* <Button variant="destructive" onClick={confirmUserDeletion}>Delete Account</Button> */}
 
-            <Modal show={confirmingUserDeletion} onClose={closeModal}>
+            <Dialog>
+                <DialogTrigger asChild>
+                    <Button variant="outline">Delete Account</Button>
+                </DialogTrigger>
                 <form onSubmit={deleteUser} className="p-6">
                     <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
                         Are you sure you want to delete your account?
@@ -70,7 +72,7 @@ export default function DeleteUserForm({ className = '' }: { className?: string 
                     <div className="mt-6">
                         <InputLabel htmlFor="password" value="Password" className="sr-only" />
 
-                        <TextInput
+                        <Input
                             id="password"
                             type="password"
                             name="password"
@@ -78,7 +80,6 @@ export default function DeleteUserForm({ className = '' }: { className?: string 
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
                             className="mt-1 block w-3/4"
-                            isFocused
                             placeholder="Password"
                         />
 
@@ -86,14 +87,14 @@ export default function DeleteUserForm({ className = '' }: { className?: string 
                     </div>
 
                     <div className="mt-6 flex justify-end">
-                        <SecondaryButton onClick={closeModal}>Cancel</SecondaryButton>
+                        <Button variant="outline" onClick={closeModal}>Cancel</Button>
 
-                        <DangerButton className="ms-3" disabled={processing}>
+                        <Button variant="destructive" className="ms-3" disabled={processing}>
                             Delete Account
-                        </DangerButton>
+                        </Button>
                     </div>
                 </form>
-            </Modal>
+            </Dialog>
         </section>
     );
 }
